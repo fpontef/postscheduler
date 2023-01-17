@@ -1,0 +1,24 @@
+.campainForm {
+  display: flex;
+  padding: 2.5rem 0;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 2rem;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+
+
+@media (max-width: 720px) {
+  .container {
+    padding: 2rem 0.5rem 0.5rem 0.5rem;
+  }
+}

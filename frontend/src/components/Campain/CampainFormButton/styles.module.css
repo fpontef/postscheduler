@@ -1,0 +1,27 @@
+.buttonContainer {
+  display: flex;
+  width: 160px;
+  height: 40px;
+  justify-content: space-between;
+}
+
+.scheduleOption {
+  width: 40px;
+  height: 100%;
+  border: 0;
+  border-radius: 6px 0px 0px 6px;
+  background-color: var(--green-100);
+  color: var(--white);
+  user-select: none;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.postNow {
+  width: 117px;
+  height: 100%;
+  border: 0;
+  border-radius: 0px 6px 6px 0px;
+  background-color: var(--green-100);
+  color: var(--white);
+}

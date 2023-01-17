@@ -1,0 +1,23 @@
+// Prisma Schema
+// Each change to the Prisma schema, need to manually run: prisma generate
+// to accomodate the changes in the client api.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  body     String
+  scheduledDate DateTime?
+  published Boolean    @default(false)
+  createdAt DateTime  @default(now())
+
+  @@map("contents")
+}

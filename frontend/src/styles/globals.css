@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #ffff;
+  --gray-50: #e1e1e1e1;
+
+  /* inputs form border */
+  --gray-100: #CCCCCC;
+
+  --gray-300: #a8a8b3;
+
+  /* bottom and font color */
+  --gray-700: #3D4749;
+
+  --gray-900: #121214;
+
+  /* page form background color */
+  --yellow-10: #E5E5E5;
+
+  /* header background color */
+  --orange-10: #FBF6F3;
+
+  --red-10: #FEFBFB;
+  --red-50: #fdf2f2;
+  --red-100: #eb4a3b;
+
+  /* primary and border button */
+  --red-200: #E82C1B;
+
+  --red-800: #db23284d;
+
+  /* schedule buttom */
+  --green-100: #00D062;
+}
+
+@media (max-width: 1080px) {
+  html {
+    /* 16px * 0.9375 = 15px */
+    font-size: 93.75%;
+  }
+}
+
+@media (max-width: 720px) {
+  html {
+    font-size: 87.5%; /*14px*/
+  }
+}
+
+body {
+  /* background: linear-gradient(0deg,var(--red-50) 0,var(--red-800) 100%) 0 0 /100% 100% fixed; */
+  background: var(--white);
+  min-height: 100vh;
+
+}
+
+body, input, textarea, select, button {
+font: 400 1rem "PT Sans", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}

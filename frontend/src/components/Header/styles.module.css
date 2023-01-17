@@ -1,0 +1,53 @@
+.headerContainer {
+  height: 5rem;
+  /* border-bottom: 1px solid var(--gray-50); */
+  background-color: #FBF6F3;
+}
+
+.headerContent {
+  max-width: 1120px;
+  height: 5em;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerContent nav {
+  display: flex;
+  height: 5rem;
+  align-items: center;
+}
+
+.headerContent__campain_button {
+  color: var(--red-200);
+  border: 2px solid var(--red-200);
+  border-radius: 6px;
+  height: 3rem;
+  padding: 0 20px;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0 10px;
+}
+
+@media (max-width: 720px) {
+  .headerContent__campain_button {
+    display: none;
+  }
+}
+
+
+
+.headerContent__logo {
+  max-width: 150px;
+  min-width: 150px;
+  display: block;
+}
+
+.headerContent__user {
+  max-width: 40px;
+  max-height: 40px;
+  border: 2px solid var(--gray-100);
+  border-radius: 50%;
+}
