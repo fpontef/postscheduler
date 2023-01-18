@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
 import {
   LocalizationProvider,
   MobileDateTimePicker,
@@ -13,7 +14,7 @@ export function DatePicker() {
     useContext(DatePickerContext);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
       <MobileDateTimePicker
         value={scheduleDate}
         onChange={(value) => {
