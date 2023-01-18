@@ -6,6 +6,7 @@ import { DatePickerContext } from '@/context/DatePickerContext';
 import styles from './styles.module.css';
 
 export function CampainFormButton(props) {
+  const { isLoading } = props;
   const { showDatePicker, setShowDatePicker } = useContext(DatePickerContext);
 
   const handleArrowClick = () => {
@@ -16,14 +17,33 @@ export function CampainFormButton(props) {
     <>
       {showDatePicker && <DatePicker />}
 
-      <div className={styles.buttonContainer}>
-        <div className={styles.scheduleOption} onClick={handleArrowClick}>
-          {showDatePicker ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+      {isLoading ? (
+        <div className={styles.buttonContainer}>
+          <div className={styles.scheduleOptionLoading}>
+            {showDatePicker ? (
+              <KeyboardArrowUpIcon />
+            ) : (
+              <KeyboardArrowDownIcon />
+            )}
+          </div>
+          <button className={styles.postNowLoading} type='button'>
+            <div className={styles.spinner}></div>
+          </button>
         </div>
-        <button className={styles.postNow}>
-          {showDatePicker ? 'Postar Agendamento' : 'Postar Agora'}
-        </button>
-      </div>
+      ) : (
+        <div className={styles.buttonContainer}>
+          <div className={styles.scheduleOption} onClick={handleArrowClick}>
+            {showDatePicker ? (
+              <KeyboardArrowUpIcon />
+            ) : (
+              <KeyboardArrowDownIcon />
+            )}
+          </div>
+          <button className={styles.postNow}>
+            {showDatePicker ? 'Postar Agendamento' : 'Postar Agora'}
+          </button>
+        </div>
+      )}
     </>
   );
 }
