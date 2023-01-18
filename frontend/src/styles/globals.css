@@ -35,6 +35,8 @@
 
   /* schedule buttom */
   --green-100: #00D062;
+
+  --green-500: #027521;
 }
 
 @media (max-width: 1080px) {
