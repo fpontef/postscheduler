@@ -7,23 +7,35 @@ import { DatePickerContext } from '@/context/DatePickerContext';
 import styles from './styles.module.css';
 import { api } from '@/services/api';
 import dayjs from 'dayjs';
+import { DialogModal } from '@/components/DialogModal';
 
 export function CampainForm() {
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  // const [dialogMessage, setDialogMessage] = useState('');
-
   const { scheduleDate, showDatePicker, setShowDatePicker } =
     useContext(DatePickerContext);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogContent, setDialogContent] = useState({
+    dialogTitle: '',
+    dialogBody: '',
+  });
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+
+  const scheduleDateAvailable =
+    showDatePicker && scheduleDate ? scheduleDate : '';
+
+  const handleOpenDialog = (dialogTitle, dialogBody) => {
+    setDialogContent({ dialogTitle, dialogBody });
+    setOpenDialog(true);
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const scheduleDateAvailable =
-      showDatePicker && scheduleDate ? scheduleDate : '';
-
     try {
       if (!scheduleDateAvailable) {
+        setIsLoading(true);
         const postCampain = await api.post(`api/posts`, {
           title,
           body,
@@ -31,7 +43,7 @@ export function CampainForm() {
 
         setTitle('');
         setBody('');
-        alert('Postagem de Campanha realizada!');
+        handleOpenDialog('Tudo pronto!', 'Postagem de Campanha realizada!');
         return;
       }
 
@@ -47,44 +59,57 @@ export function CampainForm() {
       setTitle('');
       setBody('');
       setShowDatePicker(false);
-      alert(
+      handleOpenDialog(
+        'Tudo pronto!',
         `Sua postagem está agendada para ${dayjs(scheduleDateAvailable).format(
           'DD/MM/YYYY'
         )} às ${dayjs(scheduleDateAvailable).format('h:mm A')}`
       );
     } catch (err) {
       console.error('ERROR', err);
-      alert(err.response.data.error);
+      handleOpenDialog(
+        'Não foi possível realizar ação',
+        err.response.data.error
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Postar no Mural da Campanha</h1>
+    <>
+      <DialogModal
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+        dialogContent={dialogContent}
+      />
+      <div className={styles.container}>
+        <h1 className={styles.title}>Postar no Mural da Campanha</h1>
 
-      <div className={styles.campainForm}>
-        <form onSubmit={handleFormSubmit}>
-          <TextInput
-            title='Titulo da postagem'
-            name='campainTitle'
-            type='text'
-            value={title}
-            placeholder='Informe aqui o Título da Campanha'
-            onChange={(e) => setTitle(e.target.value)}
-            required={true}
-          />
-          <TextArea
-            title='Escreva sua postagem abaixo'
-            name='campainBody'
-            type='text'
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            required={true}
-          />
+        <div className={styles.campainForm}>
+          <form onSubmit={handleFormSubmit}>
+            <TextInput
+              title='Titulo da postagem'
+              name='campainTitle'
+              type='text'
+              value={title}
+              placeholder='Informe aqui o Título da Campanha'
+              onChange={(e) => setTitle(e.target.value)}
+              required={true}
+            />
+            <TextArea
+              title='Escreva sua postagem abaixo'
+              name='campainBody'
+              type='text'
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+              required={true}
+            />
 
-          <CampainFormButton />
-        </form>
+            <CampainFormButton isLoading={isLoading} />
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
